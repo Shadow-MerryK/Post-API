@@ -1,4 +1,4 @@
-// REMOVE THIS COMMENT
+
 
 const MediaController = require('./media.controller');
 const { Router } = require('express');
