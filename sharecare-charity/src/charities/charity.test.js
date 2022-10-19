@@ -91,8 +91,38 @@ test('Should list all charities', async () => {
 test('Should return a specific charity', async () => {
 
     // TO BE IMPLEMENTED  
+
+       let charityController = CharityController();
+
+    const charity = {
+        id: 1,
+        name: 'Rich Charity',
+        description: 'Rich rich charity helps everybody',
+        createdByUser: 'Mark Rich',
+        funds: 340000
+    }
+
+    const req = expressMock.getMockReq({ params: { id: 1 }, body: charity });
+    const { res, next, mockClear } = expressMock.getMockRes()
+
+     await charityController.createCharity(req, res);
     
+    const conn = typeorm.getConnection();
+    const outCharity = await conn.getRepository("Charity").find({ id: 1 });
+    expect(res.status).toBeCalledWith(200);
+    console.log(outCharity);
+    expect(outCharity.length).toBe(1);
+    expect(res.json).toBeCalledWith({
+        id: 1,
+        name: 'Rich Charity',
+        description: 'Rich rich charity helps everybody',
+        createdByUser: 'Mark Rich',
+        funds: 340000
+    });
+
+
 });
+    
 
 test('Should update a specific charity', async () => {
     let charityController = CharityController();
@@ -147,6 +177,30 @@ test('Should update a specific charity', async () => {
 
 test('Should delete a specific charity', async () => {
     
-    // TO BE IMPLEMENTED
+        
+
+	  let charityController = CharityController();
+
+    const charity = {
+        id: 1,
+        name: 'Rich Charity',
+        description: 'Rich rich charity helps everybody',
+        createdByUser: 'Mark Rich',
+        funds: 340000
+    }
+
+ const req = expressMock.getMockReq({ body: charity });
+    const { res, next, mockClear } = expressMock.getMockRes()
+
+    await charityController.deleteCharity(req, res);
+
+    const conn = typeorm.getConnection();
+    const outCharity = await conn.getRepository("Charity").find();
+    expect(res.status).toBeCalledWith(200);
+    console.log(outCharity);
+    expect(outCharity.length).toBe(0);
+   
+
+  
     
 });

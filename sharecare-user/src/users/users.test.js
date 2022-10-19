@@ -113,6 +113,7 @@ test('Should return a specific user', async () => {
         age: 34
     }
 
+<<<<<<< HEAD
     const req = expressMock.getMockReq({ params: { id: 1 }, body: user } );
     const { res, next, mockClear } = expressMock.getMockRes()
 
@@ -136,6 +137,27 @@ test('Should return a specific user', async () => {
  });      
 
 
+=======
+    const req = expressMock.getMockReq({ params: { id: 1 }, body: user });
+    const { res, next, mockClear } = expressMock.getMockRes()
+
+    await usersController.createUser(req, res);
+    
+    const conn = typeorm.getConnection();
+    const outUsers = await conn.getRepository("User").find({ id: 1 });
+    expect(res.status).toBeCalledWith(200);
+    console.log(outUsers);
+    expect(outUsers.length).toBe(1);
+    expect(res.json).toBeCalledWith({
+        id: 1,
+        firstName: 'Rich',
+        lastName: 'Marko',
+        eMail: 'hello@prisma.io',
+        password: 'blablabla',
+        age: 34
+    });    
+});
+>>>>>>> 286d9714014123384650c0709a05c0aa288550b2
 
 test('Should update a specific user', async () => {
     
@@ -196,7 +218,11 @@ test('Should update a specific user', async () => {
 
 test('Should delete a specific user', async () => {
     
+<<<<<<< HEAD
       let usersController = UsersController();
+=======
+       let usersController = UsersController();
+>>>>>>> 286d9714014123384650c0709a05c0aa288550b2
 
     const user = {
         id: 1,
@@ -217,6 +243,7 @@ test('Should delete a specific user', async () => {
     expect(res.status).toBeCalledWith(200);
     console.log(outUsers);
     expect(outUsers.length).toBe(0);
+<<<<<<< HEAD
    
 });
 
@@ -258,3 +285,8 @@ test('Should delete a specific user', async () => {
   //  expect(res.json).toBeCalledWith(users);   
     
 //});
+=======
+    
+      
+});
+>>>>>>> 286d9714014123384650c0709a05c0aa288550b2
