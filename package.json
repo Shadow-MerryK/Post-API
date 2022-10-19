@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "jest-sonar": "^0.2.12"
+  }
+}{
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  }
+}
