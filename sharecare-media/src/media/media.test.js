@@ -51,10 +51,34 @@ test('Should create a new media ', async () => {
 });
 
 test('Should return a specific media', async () => {
-    
-    // TO BE IMPLEMENTED
+   let mediaController = MediaController();
 
-});
+     const media = {
+        id: 1,
+        url: "www.somemedia.com"
+    }
+
+    const req = expressMock.getMockReq({ params: { id: 1 }, body: media } );
+    const { res, next, mockClear } = expressMock.getMockRes()
+
+    await mediaController.createMedia(req, res);
+    
+    const conn = typeorm.getConnection();
+    const outMedia = await conn.getRepository("Media").find({ id: 1 });
+    expect(res.status).toBeCalledWith(200);
+    console.log(outMedia);
+    expect(outMedia.length).toBe(1);
+    expect(res.json).toBeCalledWith({
+        id: 1,
+        url: "www.somemedia.com"
+       
+ 
+   
+    });  
+ });       
+    
+
+
 
 test('Should update a specific media', async () => {
     let mediaController = MediaController();
@@ -99,7 +123,24 @@ test('Should update a specific media', async () => {
 });
 
 test('Should delete a specific media', async () => {
+    let mediaController = MediaController();
+
+    const media = {
+        id: 1,
+        url: "www.somemedia.com"
+    }
+
+    const req = expressMock.getMockReq({ body: media });
+    const { res, next, mockClear } = expressMock.getMockRes()
+
+    await mediaController.deleteMedia(req, res);
     
-    // TO BE IMPLEMENTED
+    const conn = typeorm.getConnection();
+    const outMedia = await conn.getRepository("Media").find();
+    expect(res.status).toBeCalledWith(200);
+    console.log(outMedia);
+    expect(outMedia.length).toBe(0);
+    //expect(res.json).toBeCalledWith(media);   
+    
     
 });

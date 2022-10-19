@@ -25,8 +25,8 @@ const postController = PostController();
 const router = Router();
 
 router.post('/posts', postController.createPost);
-///router.get('/posts/:id', postController.getPostById);
-//router.get('/posts/funds/:id', postController.getPostFundsById);
+router.get('/posts/:id', postController.getPostById);
+router.get('/posts/funds/:id', postController.getPostFundsById);
 router.get('/posts', postController.getAllPosts);
 router.put('/posts/:id', postController.updatePost);
 router.put('/posts/funds/:id', postController.updatePostFunds);
